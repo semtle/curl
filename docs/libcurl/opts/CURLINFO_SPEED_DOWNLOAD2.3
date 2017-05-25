@@ -20,19 +20,16 @@
 .\" *
 .\" **************************************************************************
 .\"
-.TH CURLINFO_SPEED_DOWNLOAD 3 "28 Aug 2015" "libcurl 7.44.0" "curl_easy_getinfo options"
+.TH CURLINFO_SPEED_DOWNLOAD2 3 "28 Aug 2015" "libcurl 7.44.0" "curl_easy_getinfo options"
 .SH NAME
-CURLINFO_SPEED_DOWNLOAD \- get download speed
+CURLINFO_SPEED_DOWNLOAD2 \- get download speed
 .SH SYNOPSIS
 #include <curl/curl.h>
 
-CURLcode curl_easy_getinfo(CURL *handle, CURLINFO_SPEED_DOWNLOAD, double *speed);
+CURLcode curl_easy_getinfo(CURL *handle, CURLINFO_SPEED_DOWNLOAD2, curl_off_t *speed);
 .SH DESCRIPTION
-Pass a pointer to a double to receive the average download speed that curl
-measured for the complete download. Measured in bytes/second.
-
-\fICURLINFO_SPEED_DOWNLOAD2(3)\fP is a newer replacement that returns a more
-sensible variable type.
+Pass a pointer to a \fIcurl_off_t\fP to receive the average download speed
+that curl measured for the complete download. Measured in bytes/second.
 .SH PROTOCOLS
 .SH EXAMPLE
 .nf
@@ -44,16 +41,16 @@ if(curl) {
   res = curl_easy_perform(curl);
 
   if(!res) {
-    double speed;
-    res = curl_easy_getinfo(curl, CURLINFO_SPEED_DOWNLOAD, &speed);
+    curl_off_t speed;
+    res = curl_easy_getinfo(curl, CURLINFO_SPEED_DOWNLOAD2, &speed);
     if(!res) {
-      printf("Download speed %.0f bytes/sec\\n", ul);
+      printf("Download speed " CURL_FORMAT_CURL_OFF_T " bytes/sec\\n", ul);
     }
   }
 }
 .fi
 .SH AVAILABILITY
-Added in 7.4.1
+Added in 7.55.0
 .SH RETURN VALUE
 Returns CURLE_OK if the option is supported, and CURLE_UNKNOWN_OPTION if not.
 .SH "SEE ALSO"
