@@ -1764,7 +1764,10 @@ static CURLcode operate_do(struct GlobalConfig *global,
         }
         else
 #endif
-        if(result && global->showerror) {
+        if(config->synthetic_error) {
+          ;
+        }
+        else if(result && global->showerror) {
           fprintf(global->errors, "curl: (%d) %s\n", result, (errorbuffer[0]) ?
                   errorbuffer : curl_easy_strerror(result));
           if(result == CURLE_SSL_CACERT)
