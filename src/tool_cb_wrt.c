@@ -144,7 +144,8 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
     size_t bytes = sz * nmemb;
     if(memchr(buffer, 0, bytes)) {
       warnf(config->global, "Binary output can mess up your terminal. "
-            "Use --binary-ok to tell curl it is still okay.\n");
+            "Use --binary-ok to tell curl to output anyway, or consider "
+            "--output to save to a file.\n");
       config->synthetic_error = ERR_BINARY_TERMINAL;
       return bytes-1;
     }
